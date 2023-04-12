@@ -1,0 +1,22 @@
+<div class="mt-4">
+    <div class="row">
+
+        {{#each courses}}
+        <div class="col-sm-6 col-lg-4">
+            <div class="card card-courses-item">
+                <a href="/courses/{{slug}}">
+                    <img src="{{this.image}}" class="card-img-top" height="400" width="100" alt="{{this.name}}">
+                </a>
+                <div class="card-body">
+                    <a href="/courses/{{slug}}">
+                        <h4 class="card-name">{{this.name}}</h4>
+                    </a>
+                    <h5 class="card-address">{{this.price}}</h5>
+                    <p class="card-text">{{this.description}}</p>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+    </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="mt-4">
+    <h2 style="text-align: center;">HIỂN THỊ USERS</h2>
+    <div class="container">
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Username</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each user}}
+                <tr>
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this.username}}</td>
+                    <td>
+                        <a href="#" class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal"
+                            data-target="#delete-user-modal">Xoá</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{{!-- Modal delete product --}}
+<div class="modal fade" id="delete-user-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            {{!-- modal-header --}}
+            <div class="modal-header">
+                <h5 class="modal-title">Xoá User</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            {{!-- modal-body --}}
+            <div class="modal-body">
+                Bạn có muốn xoá USER này không?
+            </div>
+
+            {{!-- modal-footer --}}
+            <div class="modal-footer">
+                <button type="button" id="btn-delete-user" class="btn btn-danger">Xoá bỏ</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Delete hidden form --}}
+<form method="POST" name="delete-user-form"></form>
+
+<script>
+    //khai bao bien
+    var userId;
+    var deleteForm = document.forms['delete-user-form'];
+    var btnDelUser = document.getElementById('btn-delete-user');
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        //When dialog confirm clicked 
+        $('#delete-user-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            userId = button.data('id'); //gán id khi bấm vào delete cho biến courseId cục bộ
+            console.log(userId);
+        });
+        
+        //When delete product btn clicked 
+        btnDelUser.onclick = function () {
+            deleteForm.action = '/user/' + userId + '?_method=DELETE'; //getId từ nút delete rồi thay action của form thành  /course/:id?_method=DELETE
+            deleteForm.submit(); //submit form thay vì nút button như mọi khi
+        }
+    });
+
+</script>
